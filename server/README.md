@@ -2,24 +2,34 @@
 
 ## Usage
 
-API will host list of curated recipes from various vegan blogs.
+API will host list of curated recipes from various vegan blogs. API is built with Flask, SQLAlchemy, and Flask-Mashmallow for serialization.
 
 All responses will have the form
 
 ```json
 {
 	"data": "Mixed type holding the content of the response",
-	"message": "Description of what happened"
+	"message": "Description of request status"
 }
 ```
 
-Subsequent response definitions will only detail the expected value of the `data field`
+To access API:
+
+`cd server`
+
+Create pip environment:
+`pip3 install pipenv`
+
+Install pip dependcies:
+`pipenv install`
+
+## Testing API with Postman
 
 ### List all recipes
 
-**Definition**
+**Method**
 
-`GET /recipes`
+`GET /recipe`
 
 **Response**
 
@@ -32,7 +42,7 @@ Subsequent response definitions will only detail the expected value of the `data
 		"title": "recipe title",
 		"description": "recipe description from author",
 		"image": ["url image 1", "url image 2", "url image 3"],
-		"total_time": "total cooking time (prep + cook times combined)",
+		"time": "total cooking time (prep + cook times combined)",
 		"servings": "total recipe yield",
 		"course": "meal category",
 		"cuisine": "particular country, region, or style of cooking",
@@ -73,9 +83,9 @@ Subsequent response definitions will only detail the expected value of the `data
 
 ### Adding a new recipe
 
-**Definition**
+**Method**
 
-`POST /recipes`
+`POST /recipe`
 
 **Arguments**
 
@@ -95,9 +105,11 @@ If a recipe with the given identifier already exists, response will be an error
 
 - `400 Bad Request`
 
-## Look up recipe details
+## Look up recipe
 
-`GET /recipes/<id>`
+**Method**
+
+`GET /recipe/<id>`
 
 **Response**
 
@@ -122,11 +134,21 @@ If a recipe with the given identifier already exists, response will be an error
 
 ## Delete a recipe
 
-**Definition**
+**Method**
 
-`DELETE /devices/<id>`
+`DELETE /recipe/<id>`
 
 **Response**
 
-- `404 Not Found` if the device does not exist
-- `204 No Content` action was successful, but no useful data to return
+- `404 Not Found` if the recipe does not exist
+- `200 OK` deletion was successful
+
+## Updating a recipe
+
+**Method**
+
+`PUT /recipe<id>`
+
+**Response**
+
+- `200 OK` Update was successful
